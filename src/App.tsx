@@ -1,10 +1,5 @@
-import { MainContainer } from './components/Atoms/MainContainer'
+import {Routes} from "./routes";
 
-function App() {
-
-  return (
-   <MainContainer></MainContainer>
-  )
-}
-
-export default App
+export const App: React.FC = () => {
+  return <Routes />;
+};
