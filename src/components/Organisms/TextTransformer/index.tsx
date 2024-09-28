@@ -31,6 +31,14 @@ export const TextTransformer: React.FC = () => {
       case "lowercase":
         convertedText = text.toLowerCase();
         break;
+      case "normilize":
+        convertedText = text
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/[^a-z0-9\s]/g, "")
+          .replace(/\s+/g, "-");
+        break;
       case "capitalize":
         convertedText = text
           .toLowerCase()
@@ -137,37 +145,20 @@ export const TextTransformer: React.FC = () => {
                   display="flex"
                   gap={3}
                   flexWrap="wrap"
-                  colorScheme="none"
+                  colorScheme="teal"
                   color="white"
                   onChange={(e) => setConvertType(e)}
                 >
-                  <Radio value="uppercase" colorScheme="teal">
-                    MAIÚSCULO
-                  </Radio>
-                  <Radio value="lowercase" colorScheme="teal">
-                    minúsculo
-                  </Radio>
-                  <Radio value="capitalize" colorScheme="teal">
-                    Capitalizado
-                  </Radio>
-                  <Radio value="alternating" colorScheme="teal">
-                    AlTeRnAdO
-                  </Radio>
-                  <Radio value="invert-case" colorScheme="teal">
-                    iNVERTER
-                  </Radio>
-                  <Radio value="camel-case" colorScheme="teal">
-                    camelCase
-                  </Radio>
-                  <Radio value="snake-case" colorScheme="teal">
-                    snake_case
-                  </Radio>
-                  <Radio value="kebab-case" colorScheme="teal">
-                    kebab-case
-                  </Radio>
-                  <Radio value="pascal-case" colorScheme="teal">
-                    PascalCase
-                  </Radio>
+                  <Radio value="uppercase">MAIÚSCULO</Radio>
+                  <Radio value="lowercase">minúsculo</Radio>
+                  <Radio value="normilize">Normalizado</Radio>
+                  <Radio value="capitalize">Capitalizado</Radio>
+                  <Radio value="alternating">AlTeRnAdO</Radio>
+                  <Radio value="invert-case">iNVERTER</Radio>
+                  <Radio value="camel-case">camelCase</Radio>
+                  <Radio value="snake-case">snake_case</Radio>
+                  <Radio value="kebab-case">kebab-case</Radio>
+                  <Radio value="pascal-case">PascalCase</Radio>
                 </RadioGroup>
               </Box>
             </FormControl>
