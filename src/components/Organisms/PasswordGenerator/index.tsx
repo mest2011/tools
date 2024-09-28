@@ -32,6 +32,8 @@ export const PasswordGenerator: React.FC = () => {
   const [passwordType, setPasswordType] = useState("secure");
   const [advancedSettings, setAdvancedSettings] = useState(true);
 
+  const toast = useToast();
+
   const axios = axiosBase.create();
   axios.defaults.timeout = 800;
   axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
@@ -96,8 +98,6 @@ export const PasswordGenerator: React.FC = () => {
 
     setPassword(password);
   };
-
-  const toast = useToast();
 
   const copyToClipBoard = () => {
     if (!password) return;
