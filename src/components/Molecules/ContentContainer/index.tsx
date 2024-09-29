@@ -1,5 +1,4 @@
-import { Box, BoxProps, Text, Divider, Spacer } from "@chakra-ui/react";
-import { Menu } from "../Menu";
+import { Box, BoxProps, Text, Divider } from "@chakra-ui/react";
 
 export const ContentContainer: React.FC<BoxProps> = ({
   children,
@@ -8,8 +7,6 @@ export const ContentContainer: React.FC<BoxProps> = ({
 }) => {
   return (
     <Box display="flex" my="1rem" w="100%" flexDirection="column" {...props}>
-      <Menu />
-      <Spacer m={{ base: 2, md: 4, lg: 6 }} />
       {title.length > 0 ? (
         <>
           <Text

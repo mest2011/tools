@@ -6,7 +6,7 @@ export const Accordion: React.FC<AccordionProps> = ({ children, ...props }) => {
       allowToggle
       color="whiteAlpha.900"
       bgColor="teal.500"
-      borderRadius="10px"
+      borderRadius="md"
       borderColor="transparent"
       {...props}
     >

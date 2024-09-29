@@ -7,6 +7,7 @@ import { DateComponent } from "./components/Organisms/Date";
 export const Routes = () => {
   return (
     <RoutesDom>
+      <Route path="/" element={<PasswordGenerator />} />
       <Route path="/password" element={<PasswordGenerator />} />
       <Route path="/text" element={<TextTransformer />} />
       <Route path="/ip" element={<Ip />} />

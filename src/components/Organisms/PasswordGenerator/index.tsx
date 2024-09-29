@@ -117,8 +117,8 @@ export const PasswordGenerator: React.FC = () => {
 
   return (
     <ContentContainer title="Gerador de senhas">
-      <Box display="flex" gap={3} padding={3} flexDirection="column">
-        <Box display="flex" margin="auto" gap={3} width="100%">
+      <Box display="flex" gap={6} padding={3} flexDirection="column">
+        <Box display="flex" margin="auto" gap={6} width="100%">
           <Input
             value={password}
             defaultValue=" "
