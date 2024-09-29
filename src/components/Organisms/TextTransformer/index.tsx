@@ -6,7 +6,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { ContentContainer } from "../../Atoms/ContentContainer";
+import { ContentContainer } from "../../Molecules/ContentContainer";
 import { Textarea } from "../../Atoms/Textarea";
 
 /* eslint-disable react-hooks/exhaustive-deps */
@@ -108,7 +108,7 @@ export const TextTransformer: React.FC = () => {
   };
 
   return (
-    <ContentContainer>
+    <ContentContainer title="Trasformador de textos">
       <Box display="flex" flexDirection="column">
         <Box display="flex" gap={3} padding={3} flexDirection="column">
           <Box

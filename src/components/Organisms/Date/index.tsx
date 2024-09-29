@@ -15,7 +15,7 @@ import dayjs from "dayjs";
 import businessDays from "dayjs-business-days2";
 import { useEffect, useState } from "react";
 import { Input } from "../../Atoms/Input";
-import { ContentContainer } from "../../Atoms/ContentContainer";
+import { ContentContainer } from "../../Molecules/ContentContainer";
 
 const holidays = [
   "2024-01-01",
@@ -121,7 +121,7 @@ export const DateComponent: React.FC = () => {
   };
 
   return (
-    <ContentContainer>
+    <ContentContainer title="Manipulador de data">
       <Box display="flex" flexDirection="column">
         <Box display="flex" gap={3} padding={3} flexDirection="column">
           <SimpleGrid columns={{ base: 1, md: 2 }} spacing={9}>

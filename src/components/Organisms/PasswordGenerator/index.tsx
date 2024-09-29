@@ -20,7 +20,7 @@ import { Button } from "../../Atoms/Button";
 import { Accordion } from "../../Atoms/Accordion";
 import { Slider } from "../../Atoms/Slider";
 import { Switch } from "../../Atoms/Switch";
-import { ContentContainer } from "../../Atoms/ContentContainer";
+import { ContentContainer } from "../../Molecules/ContentContainer";
 
 export const PasswordGenerator: React.FC = () => {
   const [password, setPassword] = useState<string>();
@@ -116,7 +116,7 @@ export const PasswordGenerator: React.FC = () => {
   const [showTooltip, setShowTooltip] = useState(false);
 
   return (
-    <ContentContainer>
+    <ContentContainer title="Gerador de senhas">
       <Box display="flex" gap={3} padding={3} flexDirection="column">
         <Box display="flex" margin="auto" gap={3} width="100%">
           <Input

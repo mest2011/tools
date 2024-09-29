@@ -9,7 +9,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { Button } from "../../Atoms/Button";
-import { ContentContainer } from "../../Atoms/ContentContainer";
+import { ContentContainer } from "../../Molecules/ContentContainer";
 import { Input } from "../../Atoms/Input";
 
 export const Ip: React.FC = () => {
@@ -59,7 +59,7 @@ export const Ip: React.FC = () => {
 
   return (
     <>
-      <ContentContainer>
+      <ContentContainer title="Qual meu IP?">
         <Box display="flex" gap={16} padding={3} flexDirection="column">
           <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6}>
             <GridItem colSpan={{ base: 1, md: 2 }}>
