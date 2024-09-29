@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Menu } from "./components/Molecules/Menu";
+import { useEffect, useState } from "react";
+import { Menu, pageList } from "./components/Molecules/Menu";
 import { DateComponent } from "./components/Organisms/Date";
 import { Ip } from "./components/Organisms/Ip";
 import { PasswordGenerator } from "./components/Organisms/PasswordGenerator";
@@ -7,7 +7,20 @@ import { TextTransformer } from "./components/Organisms/TextTransformer";
 import { MainContainer } from "./components/Atoms/MainContainer";
 
 export const App: React.FC = () => {
-  const [page, setPage] = useState("password");
+  const [page, setPage] = useState<string>("password");
+
+  useEffect(() => {
+    checkUrl();
+  }, []);
+
+  const checkUrl = () => {
+    const url = window.location.hash;
+    const hashPage = url.replace("#", "");
+
+    if (pageList.includes(hashPage)) {
+      setPage(hashPage);
+    }
+  };
 
   return (
     <MainContainer display="flex" flexDir={"column"}>
