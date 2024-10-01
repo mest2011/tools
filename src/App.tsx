@@ -1,4 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { useEffect, useState } from "react";
+import FingerprintJS from "@fingerprintjs/fingerprintjs";
+import ReactGA from "react-ga4";
 import { Menu, pageList } from "./components/Molecules/Menu";
 import { DateComponent } from "./components/Organisms/Date";
 import { Ip } from "./components/Organisms/Ip";
@@ -21,6 +24,19 @@ export const App: React.FC = () => {
       setPage(hashPage);
     }
   };
+
+  const getFingerprint = async () => {
+    const fp = await FingerprintJS.load();
+    const result = await fp.get();
+    return result.visitorId;
+  };
+
+  useEffect(() => {
+    async () =>
+      ReactGA._gaCommandSendPageview(location.pathname, {
+        fingerPrint: await getFingerprint(),
+      }); 
+  }, [page]);
 
   return (
     <MainContainer display="flex" flexDir={"column"}>
