@@ -1,9 +1,7 @@
 import {
   Box,
-  Checkbox,
   FormControl,
   GridItem,
-  Radio,
   RadioGroup,
   SimpleGrid,
   useToast,
@@ -16,6 +14,8 @@ import businessDays from "dayjs-business-days2";
 import { useEffect, useState } from "react";
 import { Input } from "../../Atoms/Input";
 import { ContentContainer } from "../../Molecules/ContentContainer";
+import { Radio } from "../../Atoms/Radio";
+import { Checkbox } from "../../Atoms/Checkbox";
 
 const holidays = [
   "2024-01-01",
@@ -53,9 +53,9 @@ const options = {
 dayjs.extend(businessDays, options);
 
 export const DateComponent: React.FC = () => {
-  const [date, setDate] = useState<Date>();
+  const [date, setDate] = useState<Date>(new Date());
   const [dateSecondary, setDateSecondary] = useState<dayjs.Dayjs | null>(null);
-  const [input, setInput] = useState<number>();
+  const [input, setInput] = useState<number>(0);
   const toast = useToast();
 
   const [resultDate, setResultDate] = useState<dayjs.Dayjs | null>(null);
@@ -138,11 +138,6 @@ export const DateComponent: React.FC = () => {
                 <Input
                   type="date"
                   value={date?.toISOString().split("T")[0]}
-                  sx={{
-                    "::-webkit-calendar-picker-indicator": {
-                      filter: "invert(1)",
-                    },
-                  }}
                   variant="outlined"
                   onChange={(e) => setDate(new Date(e.target.value))}
                 />
@@ -160,11 +155,6 @@ export const DateComponent: React.FC = () => {
                   <Input
                     type="date"
                     value={dateSecondary?.toISOString().split("T")[0]}
-                    sx={{
-                      "::-webkit-calendar-picker-indicator": {
-                        filter: "invert(1)",
-                      },
-                    }}
                     variant="outlined"
                     onChange={(e) => setDateSecondary(dayjs(e.target.value))}
                   />
@@ -199,11 +189,6 @@ export const DateComponent: React.FC = () => {
                     <Input
                       type="date"
                       value={resultDate?.toISOString().split("T")[0]}
-                      sx={{
-                        "::-webkit-calendar-picker-indicator": {
-                          filter: "invert(1)",
-                        },
-                      }}
                       variant="outlined"
                       onChange={(e) => setDate(new Date(e.target.value))}
                     />

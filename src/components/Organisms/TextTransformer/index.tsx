@@ -1,13 +1,13 @@
 import {
   Box,
   FormControl,
-  Radio,
   RadioGroup,
   useToast,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { ContentContainer } from "../../Molecules/ContentContainer";
 import { Textarea } from "../../Atoms/Textarea";
+import { Radio } from "../../Atoms/Radio";
 
 /* eslint-disable react-hooks/exhaustive-deps */
 export const TextTransformer: React.FC = () => {

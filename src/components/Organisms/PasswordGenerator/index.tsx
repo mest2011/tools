@@ -5,14 +5,12 @@ import {
   FormControl,
   FormLabel,
   Text,
-  Radio,
   RadioGroup,
   useToast,
   AccordionButton,
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
-  Checkbox,
 } from "@chakra-ui/react";
 import axiosBase from "axios";
 import { Input } from "../../Atoms/Input";
@@ -21,9 +19,11 @@ import { Accordion } from "../../Atoms/Accordion";
 import { Slider } from "../../Atoms/Slider";
 import { Switch } from "../../Atoms/Switch";
 import { ContentContainer } from "../../Molecules/ContentContainer";
+import { Radio } from "../../Atoms/Radio";
+import { Checkbox } from "../../Atoms/Checkbox";
 
 export const PasswordGenerator: React.FC = () => {
-  const [password, setPassword] = useState<string>();
+  const [password, setPassword] = useState<string>("");
   const [enableUpperChar, setEnableUpperChar] = useState(true);
   const [enableLowerChar, setEnableLowerChar] = useState(true);
   const [enableSpecialChar, setEnableSpecialChar] = useState(true);
@@ -121,10 +121,10 @@ export const PasswordGenerator: React.FC = () => {
         <Box display="flex" margin="auto" gap={6} width="100%">
           <Input
             value={password}
-            defaultValue=" "
             placeholder="Senha"
             variant="outlined"
             onClick={copyToClipBoard}
+            isReadOnly
           />
           <Button onClick={generatePassword}>Gerar</Button>
         </Box>

@@ -33,9 +33,12 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     async () =>
-      ReactGA._gaCommandSendPageview(location.pathname, {
+      ReactGA.send({
+        hitType: "pageview",
+        page: `/${page}`,
+        title: "Tools",
         fingerPrint: await getFingerprint(),
-      }); 
+      });
   }, [page]);
 
   return (

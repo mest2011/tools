@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axiosBase from "axios";
 import { useEffect, useState } from "react";
 import {
@@ -63,7 +64,12 @@ export const Ip: React.FC = () => {
         <Box display="flex" gap={16} padding={3} flexDirection="column">
           <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6}>
             <GridItem colSpan={{ base: 1, md: 2 }}>
-              <Input value={ip} placeholder="IP" borderColor={"teal"} />
+              <Input
+                value={ip}
+                placeholder="IP"
+                borderColor={"teal"}
+                isReadOnly
+              />
             </GridItem>
             <GridItem>
               {loading ? (
@@ -86,7 +92,12 @@ export const Ip: React.FC = () => {
               m="auto"
               style={{ textDecoration: "none" }}
             >
-              <Button px={"5dvw"} py={"0.5rem"} whiteSpace="wrap" height={"auto"}>
+              <Button
+                px={"5dvw"}
+                py={"0.5rem"}
+                whiteSpace="wrap"
+                height={"auto"}
+              >
                 Use tambem nossa API de IP
               </Button>
             </Link>
