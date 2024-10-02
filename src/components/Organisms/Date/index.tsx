@@ -54,7 +54,7 @@ dayjs.extend(businessDays, options);
 
 export const DateComponent: React.FC = () => {
   const [date, setDate] = useState<Date>(new Date());
-  const [dateSecondary, setDateSecondary] = useState<dayjs.Dayjs | null>(null);
+  const [dateSecondary, setDateSecondary] = useState<dayjs.Dayjs | null>(dayjs(new Date()));
   const [input, setInput] = useState<number>(0);
   const toast = useToast();
 
@@ -204,6 +204,7 @@ export const DateComponent: React.FC = () => {
                   variant="outlined"
                   style={{ width: "100%" }}
                   onClick={() => copyToClipBoard(resultDiff.toString())}
+                  isReadOnly
                 />
               ) : (
                 <></>
