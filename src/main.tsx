@@ -8,17 +8,20 @@ import { theme } from "./theme/index.ts";
 import { App } from "./App.tsx";
 
 ReactGA.initialize(`${import.meta.env.VITE_APP_GA4_ID}`);
-Sentry.init({
-  dsn: `${import.meta.env.VITE_APP_SENTRY_DSN}`,
-  integrations: [
-    Sentry.browserTracingIntegration(),
-    Sentry.replayIntegration(),
-  ],
-  tracesSampleRate: 1.0,
-  tracePropagationTargets: [new RegExp(import.meta.env.VITE_APP_DOMAIN)],
-  replaysSessionSampleRate: 0.5,
-  replaysOnErrorSampleRate: 1.0,
-});
+
+if (import.meta.env.VITE_APP_MODE  === 'production') {
+  Sentry.init({
+    dsn: `${import.meta.env.VITE_APP_SENTRY_DSN}`,
+    integrations: [
+      Sentry.browserTracingIntegration(),
+      Sentry.replayIntegration(),
+    ],
+    tracesSampleRate: 1.0,
+    tracePropagationTargets: [new RegExp(import.meta.env.VITE_APP_DOMAIN)],
+    replaysSessionSampleRate: 0.5,
+    replaysOnErrorSampleRate: 1.0,
+  });
+}
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
