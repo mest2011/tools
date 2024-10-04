@@ -53,8 +53,12 @@ const options = {
 dayjs.extend(businessDays, options);
 
 export const DateComponent: React.FC = () => {
-  const [date, setDate] = useState<Date>(new Date());
-  const [dateSecondary, setDateSecondary] = useState<dayjs.Dayjs | null>(dayjs(new Date()));
+  const [date, setDate] = useState<string>(
+    new Date().toISOString().split("T")[0]
+  );
+  const [dateSecondary, setDateSecondary] = useState<string>(
+    new Date().toISOString().split("T")[0]
+  );
   const [input, setInput] = useState<number>(0);
   const toast = useToast();
 
@@ -94,10 +98,13 @@ export const DateComponent: React.FC = () => {
       case "difference":
         if (!dateSecondary) return;
         if (onlyBusinessDay) {
-          setResultDiff(dateSecondary.businessDiff(dateValue));
+          setResultDiff(dayjs(dateSecondary).businessDiff(dateValue));
         } else {
           setResultDiff(
-            dateSecondary.diff(dateValue, magnitude as dayjs.ManipulateType)
+            dayjs(dateSecondary).diff(
+              dateValue,
+              magnitude as dayjs.ManipulateType
+            )
           );
         }
     }
@@ -137,9 +144,9 @@ export const DateComponent: React.FC = () => {
                 </InputLeftAddon>
                 <Input
                   type="date"
-                  value={date?.toISOString().split("T")[0]}
+                  value={date}
                   variant="outlined"
-                  onChange={(e) => setDate(new Date(e.target.value))}
+                  onChange={(e) => setDate(e.target.value)}
                 />
               </InputGroup>
               {type === "difference" && (
@@ -154,9 +161,9 @@ export const DateComponent: React.FC = () => {
                   </InputLeftAddon>
                   <Input
                     type="date"
-                    value={dateSecondary?.toISOString().split("T")[0]}
+                    value={dateSecondary}
                     variant="outlined"
-                    onChange={(e) => setDateSecondary(dayjs(e.target.value))}
+                    onChange={(e) => setDateSecondary(e.target.value)}
                   />
                 </InputGroup>
               )}
@@ -190,7 +197,7 @@ export const DateComponent: React.FC = () => {
                       type="date"
                       value={resultDate?.toISOString().split("T")[0]}
                       variant="outlined"
-                      onChange={(e) => setDate(new Date(e.target.value))}
+                      onChange={(e) => setDate(e.target.value)}
                     />
                   </InputGroup>
                 </Box>
