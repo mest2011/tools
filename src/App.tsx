@@ -12,14 +12,13 @@ export const App: React.FC = () => {
   const { currentRoute } = useRouteContext();
 
   useEffect(() => {
-    console.log("currentRoute", currentRoute);  
+    console.log("currentRoute", currentRoute);
   }, [currentRoute]);
 
   return (
     <MainContainer display="flex" flexDir={"column"}>
       <Menu my={{ base: 2, md: 4, lg: 6 }} />
-      {currentRoute === "password" ||
-        (currentRoute === null && <PasswordGenerator />)}
+      {["password", "/"].includes(currentRoute) && <PasswordGenerator />}
       {currentRoute === "text" && <TextTransformer />}
       {currentRoute === "ip" && <Ip />}
       {currentRoute === "date" && <DateComponent />}
