@@ -1,13 +1,13 @@
 import { Box, BoxProps, ButtonGroup } from "@chakra-ui/react";
 import { MenuButton } from "./MenuButton";
+import { MenuList } from "./MenuList";
+import { useRouteContext } from "../../../providers/router";
 
-export const pageList = ["password", "text", "ip", "date"];
+export const pageList = ["password", "text", "ip", "date", "clock"];
 
-export interface MenuProps extends BoxProps {
-  changePage: (page: string) => void;
-}
+export const Menu: React.FC<BoxProps> = ({ ...props }) => {
+  const { updateRoute } = useRouteContext();
 
-export const Menu: React.FC<MenuProps> = ({ changePage, ...props }) => {
   return (
     <Box {...props}>
       <ButtonGroup
@@ -22,16 +22,17 @@ export const Menu: React.FC<MenuProps> = ({ changePage, ...props }) => {
         >
           Home
         </MenuButton>
-        <MenuButton onClick={() => changePage(pageList[1])}>
+        <MenuButton onClick={() => updateRoute(pageList[1])}>
           Transformador de Texto
         </MenuButton>
-        <MenuButton onClick={() => changePage(pageList[3])}>
+        <MenuButton onClick={() => updateRoute(pageList[3])}>
           Manipulador de Data
         </MenuButton>
-        <MenuButton onClick={() => changePage(pageList[2])}>Meu IP</MenuButton>
-        <MenuButton onClick={() => changePage(pageList[0])}>
+        <MenuButton onClick={() => updateRoute(pageList[2])}>Meu IP</MenuButton>
+        <MenuButton onClick={() => updateRoute(pageList[0])}>
           Gerador de Senha
         </MenuButton>
+        <MenuList />
       </ButtonGroup>
     </Box>
   );

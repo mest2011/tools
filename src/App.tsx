@@ -1,58 +1,29 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-import { useEffect, useState } from "react";
-import FingerprintJS from "@fingerprintjs/fingerprintjs";
-import ReactGA from "react-ga4";
-import { Menu, pageList } from "./components/Molecules/Menu";
+import { Menu } from "./components/Molecules/Menu";
 import { DateComponent } from "./components/Organisms/Date";
 import { Ip } from "./components/Organisms/Ip";
 import { PasswordGenerator } from "./components/Organisms/PasswordGenerator";
 import { TextTransformer } from "./components/Organisms/TextTransformer";
 import { MainContainer } from "./components/Atoms/MainContainer";
+import { useEffect } from "react";
+import { useRouteContext } from "./providers/router";
+import { Clock } from "./components/Organisms/Clock";
 
 export const App: React.FC = () => {
-  const [page, setPage] = useState<string>("password");
+  const { currentRoute } = useRouteContext();
 
   useEffect(() => {
-    checkUrl();
-  }, []);
-
-  const checkUrl = () => {
-    const url = window.location.hash;
-    const hashPage = url.replace("#", "");
-
-    if (pageList.includes(hashPage)) {
-      setPage(hashPage);
-    }
-  };
-
-  const getFingerprint = async () => {
-    const fp = await FingerprintJS.load();
-    const result = await fp.get();
-    return result.visitorId;
-  };
-
-  useEffect(() => {
-    async () =>
-      ReactGA.send({
-        hitType: "pageview",
-        page: `/${page}`,
-        title: "Tools",
-        fingerPrint: await getFingerprint(),
-      });
-  }, [page]);
+    console.log("currentRoute", currentRoute);  
+  }, [currentRoute]);
 
   return (
     <MainContainer display="flex" flexDir={"column"}>
-      <Menu
-        my={{ base: 2, md: 4, lg: 6 }}
-        changePage={(value) => {
-          setPage(value);
-        }}
-      />
-      {page === "password" && <PasswordGenerator />}
-      {page === "text" && <TextTransformer />}
-      {page === "ip" && <Ip />}
-      {page === "date" && <DateComponent />}
+      <Menu my={{ base: 2, md: 4, lg: 6 }} />
+      {currentRoute === "password" ||
+        (currentRoute === null && <PasswordGenerator />)}
+      {currentRoute === "text" && <TextTransformer />}
+      {currentRoute === "ip" && <Ip />}
+      {currentRoute === "date" && <DateComponent />}
+      {currentRoute === "clock" && <Clock />}
     </MainContainer>
   );
 };

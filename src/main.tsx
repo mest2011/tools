@@ -6,10 +6,11 @@ import * as Sentry from "@sentry/react";
 
 import { theme } from "./theme/index.ts";
 import { App } from "./App.tsx";
+import { RouteProvider } from "./providers/router.tsx";
 
 ReactGA.initialize(`${import.meta.env.VITE_APP_GA4_ID}`);
 
-if (import.meta.env.VITE_APP_MODE  === 'production') {
+if (import.meta.env.VITE_APP_MODE === "production") {
   Sentry.init({
     dsn: `${import.meta.env.VITE_APP_SENTRY_DSN}`,
     integrations: [
@@ -26,7 +27,9 @@ if (import.meta.env.VITE_APP_MODE  === 'production') {
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ChakraProvider theme={theme}>
-      <App />
+      <RouteProvider>
+        <App />
+      </RouteProvider>
     </ChakraProvider>
   </StrictMode>
 );
