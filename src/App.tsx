@@ -4,16 +4,11 @@ import { Ip } from "./components/Organisms/Ip";
 import { PasswordGenerator } from "./components/Organisms/PasswordGenerator";
 import { TextTransformer } from "./components/Organisms/TextTransformer";
 import { MainContainer } from "./components/Atoms/MainContainer";
-import { useEffect } from "react";
 import { useRouteContext } from "./providers/router";
 import { Clock } from "./components/Organisms/Clock";
 
 export const App: React.FC = () => {
   const { currentRoute } = useRouteContext();
-
-  useEffect(() => {
-    console.log("currentRoute", currentRoute);
-  }, [currentRoute]);
 
   return (
     <MainContainer display="flex" flexDir={"column"}>
