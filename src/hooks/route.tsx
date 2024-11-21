@@ -2,7 +2,7 @@
 import { useState, useCallback, useEffect } from "react";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import ReactGA from "react-ga4";
-import { pageList } from "../components/Molecules/Menu";
+import { pageList } from "../model/constants/pages";
 
 function useRouteState() {
   const [currentRoute, setCurrentRoute] = useState<string>(
@@ -37,7 +37,7 @@ function useRouteState() {
         fingerPrint: await getFingerprint(),
       });
     setCurrentRoute(newRoute);
-    window.history.pushState({}, "", `#${newRoute}`); // Atualiza a URL sem recarregar
+    window.history.pushState({}, "", `#${newRoute}`);
   }, []);
 
   return { currentRoute, updateRoute };

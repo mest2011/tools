@@ -22,14 +22,19 @@ export const UpperMenuButtonsMolecule: React.FC<IUpperMenuButtonsMolecule> = ({
       }}
     >
       <a href="https://mesttech.com.br" style={{ textDecoration: "none" }}>
-        <Button variant="outline" _hover={{ background: "teal.400" }}>
+        <Button
+          variant="outline"
+          p="1.5rem"
+          _hover={{ background: "teal.600" }}
+        >
           <BsHouse />
         </Button>
       </a>
       <Button
         onClick={() => window.location.reload()}
         variant="outline"
-        _hover={{ background: "teal.400" }}
+        p="1.5rem"
+        _hover={{ background: "teal.600" }}
       >
         <BsArrowRepeat />
       </Button>

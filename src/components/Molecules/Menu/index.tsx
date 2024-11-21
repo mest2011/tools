@@ -2,8 +2,7 @@ import { Box, BoxProps, ButtonGroup } from "@chakra-ui/react";
 import { MenuButton } from "./MenuButton";
 import { MenuList } from "./MenuList";
 import { useRouteContext } from "../../../providers/router";
-
-export const pageList = ["password", "text", "ip", "date", "clock"];
+import { pageList } from "../../../model/constants/pages";
 
 export const Menu: React.FC<BoxProps> = ({ ...props }) => {
   const { updateRoute } = useRouteContext();

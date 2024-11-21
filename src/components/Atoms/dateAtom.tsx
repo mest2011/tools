@@ -30,7 +30,7 @@ export const DateAtom: React.FC<IDateAtom> = ({
       onClick={onClick}
       style={{
         color: "#FEFEFE",
-        textAlign: showSecond || showMilli ? "start" : "end",
+        textAlign: showSecond || showMilli ? "center" : "end",
         fontSize: "2vw",
         fontFamily: `${font}, "sans-serif"`,
       }}

@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -13,8 +14,7 @@ import { Box, Text } from "@chakra-ui/react";
 import { WeatherAtom } from "../../Atoms/weatherAtom ";
 import { DateAtom } from "../../Atoms/dateAtom";
 import { LowerMenuButtonsMolecule } from "../../Molecules/lowerMenuButtonsMolecule";
-
-let ticks = 0;
+import { useGesture } from "@use-gesture/react";
 
 export const Clock: React.FC = () => {
   const [showMilli, setShowMilli] = useState<boolean>(
@@ -48,11 +48,6 @@ export const Clock: React.FC = () => {
   const [millisecond, setMillisecond] = useState<string>();
   const [weather, setWeather] = useState<WeatherData>();
 
-  const [doubleTapTicController, setDoubleTapTicController] =
-    useState<number>(0);
-  const [ticController, setTicController] = useState<number>(0);
-  const [controlsTic, setControlsTic] = useState<number>(0);
-
   useEffect(() => {
     getWeather();
   }, []);
@@ -60,7 +55,9 @@ export const Clock: React.FC = () => {
   const getWeather = () => {
     axios
       .get(
-        `https://api.openweathermap.org/data/2.5/weather?id=3464975&lang=pt_br&appid=${import.meta.env.VITE_APP_OPEN_WEATHER_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?id=3464975&lang=pt_br&appid=${
+          import.meta.env.VITE_APP_OPEN_WEATHER_KEY
+        }&units=metric`
       )
       .then((value) => setWeather(value.data));
   };
@@ -92,34 +89,35 @@ export const Clock: React.FC = () => {
 
   const handle = useFullScreenHandle();
 
+  const bind = useGesture({
+    onDoubleClick: () => {
+      handleFullScreen(handle.active);
+    },
+    onClick: () => {
+      showControlsHandler();
+    },
+  });
+
+  const timeoutRef = useRef<NodeJS.Timeout>();
+
+  const showControlsHandler = () => {
+    setShowControls(true);
+    clearTimeout(timeoutRef.current);
+
+    timeoutRef.current = setTimeout(() => {
+      setShowControls(false);
+    }, 5000);
+  };
+
   useEffect(() => {
     setInterval(() => {
       getTime();
-      ticks++;
-      setTicController(ticks);
     }, 100);
 
     setInterval(() => {
       if (showWeather) getWeather();
     }, 1000 * 60 * 15);
   }, []);
-
-  useEffect(() => {
-    if (ticks - controlsTic <= 1 * 10) {
-      setShowControls(true);
-    }
-    if (ticks - controlsTic === 10 * 10) {
-      setShowControls(false);
-    }
-  }, [ticController, controlsTic]);
-
-  const doubleTab = () => {
-    if (ticks - doubleTapTicController < 1 * 5) {
-      handleFullScreen(handle.active);
-    } else {
-      setDoubleTapTicController(ticks);
-    }
-  };
 
   const getDayWeekPortuguese = (numberOfDay: number) => {
     return days[numberOfDay];
@@ -130,16 +128,14 @@ export const Clock: React.FC = () => {
   };
 
   const handleFont = (next: boolean) => {
+    const currentIndex = fonts.indexOf(font);
+
     if (next) {
-      if (fonts.length === fonts.indexOf(font)) {
-        setFont(fonts[0]);
-      }
-      setFont(fonts[fonts.indexOf(font) + 1]);
+      const nextIndex = (currentIndex + 1) % fonts.length;
+      setFont(fonts[nextIndex]);
     } else {
-      if (fonts.indexOf(font) === 0) {
-        setFont(fonts[fonts.length - 1]);
-      }
-      setFont(fonts[fonts.indexOf(font) - 1]);
+      const prevIndex = (currentIndex - 1 + fonts.length) % fonts.length;
+      setFont(fonts[prevIndex]);
     }
   };
 
@@ -148,18 +144,14 @@ export const Clock: React.FC = () => {
   };
 
   return (
-    <span
-      onClick={() => {
-        doubleTab();
-        setControlsTic(ticks);
-      }}
-    >
+    <span {...bind()}>
       <FullScreen handle={handle}>
         <UpperMenuButtonsMolecule showControls={showControls} />
         <Box
+          px={{ base: 12, md: 18, lg: 24 }}
           style={{
-            height: "100dvh",
-            width: "100dvw",
+            height: "100%",
+            width: "100%",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -168,6 +160,7 @@ export const Clock: React.FC = () => {
             position: "fixed",
             top: 0,
             left: 0,
+            zIndex: 1,
           }}
         >
           <Box
@@ -184,6 +177,9 @@ export const Clock: React.FC = () => {
                 fontFamily: `${font}, "sans-serif"`,
                 color: "#FEFEFE",
                 textAlign: showSecond || showMilli ? "start" : "center",
+                display: "flex",
+                alignItems: "center",
+                flexWrap: "wrap",
               }}
             >
               <span>{hour}</span>:<span>{minute}</span>
@@ -212,6 +208,8 @@ export const Clock: React.FC = () => {
               weather?.name !== undefined ? (
                 <WeatherAtom
                   font={font}
+                  showMilli={showMilli}
+                  showSecond={showSecond}
                   icon={WeatherIcon[weather?.weather[0]?.icon || "000"]}
                   name={weather?.name}
                   temperature={weather?.main?.temp}
@@ -220,7 +218,7 @@ export const Clock: React.FC = () => {
                 <Text
                   style={{
                     color: "#FEFEFE",
-                    textAlign: showSecond || showMilli ? "start" : "end",
+                    textAlign: showSecond || showMilli ? "center" : "end",
                     fontSize: "1.5vw",
                     fontFamily: `${font}, "sans-serif"`,
                   }}

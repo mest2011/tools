@@ -10,7 +10,7 @@ import { useRouteContext } from "../../../../providers/router";
 
 export const MenuList: React.FC = () => {
   const { updateRoute } = useRouteContext();
-  
+
   return (
     <Menu colorScheme="teal">
       <Flex position="relative">
@@ -20,13 +20,18 @@ export const MenuList: React.FC = () => {
           bg="teal.100"
           color="teal.900"
           top={{ base: 10, lg: 14 }}
+          _hover={{
+            background: "teal.800",
+            color: "teal.200",
+          }}
         >
           <MenuItem
             onClick={() => updateRoute("clock")}
-            bg="teal.100"
+            bg="transparent"
             color="teal.900"
-            _hover={{ background: "teal.200" }}
-            _active={{ background: "teal.300" }}
+            _hover={{
+              color: "teal.200",
+            }}
           >
             Relógio
           </MenuItem>

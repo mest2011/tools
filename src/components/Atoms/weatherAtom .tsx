@@ -1,12 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Text } from "@chakra-ui/react";
 import { WiCelsius } from "react-icons/wi";
 
 interface IWeatherAtom {
   name: string;
   temperature?: number;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   icon: any;
   font: string;
+  showMilli: boolean;
+  showSecond: boolean;
 }
 
 export const WeatherAtom: React.FC<IWeatherAtom> = ({
@@ -14,6 +16,8 @@ export const WeatherAtom: React.FC<IWeatherAtom> = ({
   temperature,
   icon,
   font,
+  showSecond,
+  showMilli,
 }) => {
   return (
     <Text
@@ -22,8 +26,8 @@ export const WeatherAtom: React.FC<IWeatherAtom> = ({
         textAlign: "end",
         fontSize: "2vw",
         fontFamily: `${font}, "sans-serif"`,
+        justifyContent: showMilli || showSecond ? "center" : "flex-end",
         display: "flex",
-        justifyContent: "flex-end",
       }}
     >
       {`${name} - `}

@@ -43,55 +43,62 @@ export const LowerMenuButtonsMolecule: React.FC<ILowerMenuButtonsMolecule> = ({
         display: showControls ? "flex" : "none",
         justifyContent: "space-around",
         flexWrap: "wrap",
-        
+        zIndex: 2,
       }}
     >
       <Button
         onClick={handleBeforeFont}
         variant="outline"
-        _hover={{ background: "teal.400" }}
+        p="1.5rem"
+        _hover={{ background: "teal.600" }}
       >
         <ArrowLeftIcon />
       </Button>
       <Button
         onClick={handleNextFont}
         variant="outline"
-        _hover={{ background: "teal.400" }}
+        p="1.5rem"
+        _hover={{ background: "teal.600" }}
       >
         <ArrowRightIcon />
       </Button>
       <Button
         onClick={setShowWeather}
         variant="outline"
-        _hover={{ background: "teal.400" }}
+        p="1.5rem"
+        _hover={{ background: "teal.600" }}
       >
         <BsThermometerLow />
       </Button>
       <Button
         onClick={setShowDate}
         variant="outline"
-        _hover={{ background: "teal.400" }}
+        p="1.5rem"
+        _hover={{ background: "teal.600" }}
       >
         <BsCalendar2Date />
       </Button>
       <Button
         onClick={setShowSecond}
         variant="outline"
-        _hover={{ background: "teal.400" }}
+        p="1.5rem"
+        _hover={{ background: "teal.600" }}
       >
         <BsStopwatch />
       </Button>
       <Button
         onClick={setShowMilli}
         variant="outline"
-        _hover={{ background: "teal.400" }}
+        p="1.5rem"
+        _hover={{ background: "teal.600" }}
       >
         <BsStopwatchFill />
       </Button>
       <Button
         onClick={handleFullScreen}
         variant="outline"
-        _hover={{ background: "teal.400" }}
+        p="1.5rem"
+        _hover={{ background: "teal.600" }}
       >
         {isFullScreen ? <BsFullscreen /> : <BsFullscreenExit />}
       </Button>
