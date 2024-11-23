@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button as ButtonBase, ButtonProps } from "@chakra-ui/react";
 
-export const Button: React.FC<ButtonProps> = ({ children, ...props }) => {
+export const Button: React.FC<ButtonProps | any> = ({ children, ...props }) => {
   return (
     <ButtonBase
       variant="solid"

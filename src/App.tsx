@@ -6,6 +6,7 @@ import { TextTransformer } from "./components/Organisms/TextTransformer";
 import { MainContainer } from "./components/Atoms/MainContainer";
 import { useRouteContext } from "./providers/router";
 import { Clock } from "./components/Organisms/Clock";
+import { News } from "./components/Organisms/News";
 
 export const App: React.FC = () => {
   const { currentRoute } = useRouteContext();
@@ -18,6 +19,7 @@ export const App: React.FC = () => {
       {currentRoute === "ip" && <Ip />}
       {currentRoute === "date" && <DateComponent />}
       {currentRoute === "clock" && <Clock />}
+      {currentRoute === "news" && <News />}
     </MainContainer>
   );
 };

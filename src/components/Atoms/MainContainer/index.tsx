@@ -12,7 +12,7 @@ export const MainContainer: React.FC<MainContainerProps> = ({
   ...props
 }) => {
   return (
-    <Box m={0} p={0} bgColor={"gray.700"} w={"100dvw"} h={"100dvh"}>
+    <Box m={0} p={0} bgColor={"gray.700"} w={"100dvw"} minH={"100dvh"}>
       <Box maxW={internalLimit || "1280px"} m="auto" px="3rem" {...props}>
         {children}
       </Box>

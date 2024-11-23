@@ -1,1 +1,1 @@
-export const pageList = ["password", "text", "ip", "date", "clock"];
+export const pageList = ["password", "text", "ip", "date", "clock", "news", "/"];
