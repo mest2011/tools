@@ -9,7 +9,7 @@ export const MenuButton = forwardRef<HTMLButtonElement, ButtonProps>(
         color={"teal.600 !important"}
         sx={{
           _hover: {
-            backgroundColor: "teal.100",
+            backgroundColor: "teal.200",
           },
         }}
         {...props}

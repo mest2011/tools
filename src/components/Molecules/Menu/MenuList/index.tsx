@@ -13,13 +13,11 @@ export const MenuList: React.FC = () => {
 
   return (
     <Menu colorScheme="teal">
-      <Flex position="relative">
+      <Flex>
         <ChakraMenuButton as={MenuButton}>Wallpaper</ChakraMenuButton>
         <ChakraMenuLIst
-          position="absolute"
           bg="teal.100"
           color="teal.900"
-          top={{ base: 10, lg: 14 }}
           _hover={{
             background: "teal.800",
             color: "teal.200",
