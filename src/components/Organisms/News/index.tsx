@@ -11,30 +11,20 @@ import {
   Text,
   Grid,
 } from "@chakra-ui/react";
-import { canaltechRssResponse } from "../../../mock/canaltech_rss_response";
-import { XMLParser } from "fast-xml-parser";
-import { useEffect, useState } from "react";
 import htmlToJson from "../../../utils/html_parser";
 import { Button } from "../../Atoms/Button";
+import useNews from "../../../hooks/news";
 
 export const News: React.FC = () => {
-  const [news, setNews] = useState([]);
+  const { news } = useNews();
 
-  const xmlToJson = (xml: string) => {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(xml, "application/xml");
-    const xmlParser = new XMLParser();
-    const xmlString = new XMLSerializer().serializeToString(doc);
-    const json = xmlParser.parse(xmlString);
+ 
 
-    return json;
-  };
-
-  useEffect(() => {
-    const json = xmlToJson(canaltechRssResponse);
-    setNews(json?.rss?.channel?.item);
-    console.log(json?.rss?.channel?.item);
-  }, []);
+//   useEffect(() => {
+//     const json = xmlToJson(canaltechRssResponse);
+//     setNews(json?.rss?.channel?.item);
+//     console.log(json?.rss?.channel?.item);
+//   }, []);
 
   return (
     <Grid templateColumns="repeat(3, 1fr)" gap={6} width="100%" padding="2rem">
