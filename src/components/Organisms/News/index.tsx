@@ -18,73 +18,49 @@ import useNews from "../../../hooks/news";
 export const News: React.FC = () => {
   const { news } = useNews();
 
- 
-
-//   useEffect(() => {
-//     const json = xmlToJson(canaltechRssResponse);
-//     setNews(json?.rss?.channel?.item);
-//     console.log(json?.rss?.channel?.item);
-//   }, []);
+  //   useEffect(() => {
+  //     const json = xmlToJson(canaltechRssResponse);
+  //     setNews(json?.rss?.channel?.item);
+  //     console.log(json?.rss?.channel?.item);
+  //   }, []);
 
   return (
-    <Grid templateColumns="repeat(3, 1fr)" gap={6} width="100%" padding="2rem">
-      {news ? (
-        news.map((item: any) => {
-          return (
-            <>
-              {console.log(
-                JSON.stringify(htmlToJson(item.description)[1].children[0])
-              )}
-              <Card maxW="sm" bg={"gray.900"}>
-                <CardBody>
-                  <Image
-                    src={`${
-                      htmlToJson(item.description)[0].children[0].attributes.src
-                    }`}
-                    alt={item.title}
-                    borderRadius="lg"
-                  />
-                  <Flex
-                    mt="6"
-                    gap={3}
-                    flexDir={"column"}
-                    justifyContent={"space-between"}
-                  >
-                    <Heading size="md" color={"gray.200"}>
-                      {item.title}
-                    </Heading>
-                    <Text color="gray.100" fontSize="sm">
-                      By: {item["dc:creator"]} •{" "}
-                      {new Date(item.pubDate).toLocaleDateString()}
-                    </Text>
-                    <Text color="gray.100" fontSize="10px">
-                      Font: Canaltech
-                    </Text>
-                  </Flex>
-                </CardBody>
-                <Divider color={"gray.400"} />
-                <CardFooter>
-                  <ButtonGroup spacing="2">
-                    <Button
-                      as="a"
-                      href={item.link}
-                      target="_blank"
-                      variant="solid"
-                      colorScheme="teal"
-                    >
-                      Leia mais
-                    </Button>
-                  </ButtonGroup>
-                </CardFooter>
-              </Card>
-            </>
-          );
-        })
-      ) : (
-        <Text fontSize="4xl" fontFamily="Roboto, sans-serif">
-          Loading...
+    <Flex
+      bg={"black"}
+      w="100%"
+      h={"100%"}
+      position={"fixed"}
+      top={0}
+      left={0}
+      zIndex={1}
+      backgroundImage={
+        "url(https://t.ctcdn.com.br/Ts580YLcnQMrTUCEQ4ixYXqyl-M=/700x394/smart/i929963.jpeg)"
+      }
+      backgroundSize={"cover"}
+      backgroundPosition={"center"}
+    >
+      <Flex
+        mt={"auto"}
+        flexDir={"column"}
+        gap={4}
+        p={12}
+        color={"white"}
+        bgColor={"#000000ab"}
+        backdropFilter={"blur(7px)"}
+      >
+        <Text fontSize={"5xl"} fontWeight={"bold"}>
+          Cientista prometem mapear mais de 37,2 trilhões de células humanas em
+          novo atlas
         </Text>
-      )}
-    </Grid>
+        <Text fontSize={"xl"}>
+          O projeto Human Cell Atlas tem uma missão para lá de desafiadora:
+          mapear todas as células de um ser humano, do momento em que ele começa
+          a se desenvolver até a sua morte. A missão foi criada em 2016 e conta
+          com um consórcio internacional de pesquisa colaborativa com 3,6 mil
+          cientistas de 190 laboratórios ao redor do mundo.
+        </Text>
+        <Text fontSize={"xs"}>Canaltech - 2024-11-24 - Daniel Vila Nova </Text>
+      </Flex>
+    </Flex>
   );
 };
