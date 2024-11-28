@@ -32,9 +32,6 @@ export const Menu: React.FC<BoxProps> = ({ ...props }) => {
           Gerador de Senha
         </MenuButton>
         <MenuList />
-        <MenuButton onClick={() => updateRoute(pageList[5])}>
-          Notícias
-        </MenuButton>
       </ButtonGroup>
     </Box>
   );

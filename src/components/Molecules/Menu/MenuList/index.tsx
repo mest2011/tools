@@ -19,7 +19,6 @@ export const MenuList: React.FC = () => {
           bg="teal.100"
           color="teal.900"
           _hover={{
-            background: "teal.800",
             color: "teal.200",
           }}
         >
@@ -28,10 +27,22 @@ export const MenuList: React.FC = () => {
             bg="transparent"
             color="teal.900"
             _hover={{
+              background: "teal.800",
               color: "teal.200",
             }}
           >
             Relógio
+          </MenuItem>
+          <MenuItem
+            onClick={() => updateRoute("news")}
+            bg="transparent"
+            color="teal.900"
+            _hover={{
+              background: "teal.800",
+              color: "teal.200",
+            }}
+          >
+            Notícias
           </MenuItem>
         </ChakraMenuLIst>
       </Flex>
