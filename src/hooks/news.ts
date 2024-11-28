@@ -11,18 +11,14 @@ const useNews = () => {
     axios
       .get(`${import.meta.env.VITE_APP_FEED_RSS}`, {
         headers: {
-          "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/xml",
-          "Referrer-Policy": "no-referrer",
-          "Accept": "application/xml",
+          Accept: "application/xml",
         },
       })
       .then((response) => {
-        console.log(response.data);
         const data = xmlToJson(response.data);
-        setNews(data);
-      })
-      .finally(() => {
+        setNews(data?.rss?.channel?.item);
+      }).finally(() => {
         setLoading(false);
       });
   };
