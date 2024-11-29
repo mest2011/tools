@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Avatar, Flex, Text } from "@chakra-ui/react";
+import {
+  Avatar,
+  CircularProgress,
+  Flex,
+  Progress,
+  Text,
+} from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import useNews from "../../../hooks/news";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
@@ -15,10 +21,11 @@ const MotionFlex = motion(
   forwardRef<HTMLDivElement, any>((props, ref) => <Flex ref={ref} {...props} />)
 );
 
-let timeoutId: any;
+let interval: any;
 
 export const News: React.FC = () => {
   const [notice, setNotice] = useState<any>();
+  const [progressTime, setProgressTime] = useState(0);
 
   const { news } = useNews();
 
@@ -57,11 +64,10 @@ export const News: React.FC = () => {
     if (notice_index >= news.length - 1) {
       notice_index = -1;
     }
+    handleRestartCounterTime();
 
-    timeoutId = setTimeout(() => {
-      notice_index++;
-      setNotice(news[notice_index]);
-    }, 15000);
+    notice_index++;
+    setNotice(news[notice_index]);
   };
 
   const handle = useFullScreenHandle();
@@ -76,19 +82,35 @@ export const News: React.FC = () => {
     fullScreen ? handle.exit() : handle.enter();
   };
 
-  useEffect(() => {
-    if (news?.length > 0) {
-      notice_index = 0;
-      clearTimeout(timeoutId);
-      setNotice(news[notice_index]);
-    }
-  }, [news]);
+  const handleRestartCounterTime = () => {
+    setProgressTime(0);
+    clearInterval(interval);
+
+    interval = setInterval(() => {
+      setProgressTime((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          changeNotice();
+          return 100;
+        }
+        return prev + 0.05;
+      });
+    }, 10);
+
+    return () => clearInterval(interval);
+  };
+
+  const handleFirstNotice = () => {
+    notice_index = 0;
+    setNotice(news[notice_index]);
+  };
 
   useEffect(() => {
-    if (!notice) return;
-    changeNotice();
-    console.log(notice_index);
-  }, [notice]);
+    if (news?.length > 0) {
+      handleFirstNotice();
+      handleRestartCounterTime();
+    }
+  }, [news]);
 
   return (
     news?.length > 0 && (
@@ -99,6 +121,11 @@ export const News: React.FC = () => {
         top={0}
         height={"100%"}
         width={"100%"}
+        onClick={() => {
+          handleRestartCounterTime();
+          if (handle.active) return;
+          handleFullScreen(false);
+        }}
         {...bind()}
       >
         <FullScreen handle={handle}>
@@ -116,18 +143,32 @@ export const News: React.FC = () => {
             })`}
             backgroundSize={"cover"}
             backgroundPosition={"center"}
+            display={"flex"}
+            flexDirection={"column"}
           >
-            <Avatar
-              name="Canaltech"
-              size="xl"
-              src="https://img.canaltech.com.br/canaltech-512.png"
+            <CircularProgress
+              value={progressTime}
               position={"fixed"}
               top={4}
               left={4}
+              size="84px"
+              color="teal.400"
+              trackColor="transparent"
+              capIsRound
               display={handle.active ? "block" : "none"}
-            />
+            >
+              <Avatar
+                name="Canaltech"
+                size="lg"
+                src="https://img.canaltech.com.br/canaltech-512.png"
+                position="absolute"
+                top="50%"
+                left="50%"
+                transform="translate(-50%, -50%)"
+              />
+            </CircularProgress>
             <MotionFlex
-              initial={{ y: "100%", opacity: 0 }} // Começa fora da tela e invisível
+              initial={handle.active ? { y: "100%", opacity: 0 } : { y: "10%", opacity: 50 }} // Começa fora da tela e invisível
               animate={{ y: 0, opacity: 1 }} // Desliza para sua posição e fica visível
               transition={{ duration: 1, ease: "easeOut" }} // Tempo e suavidade
               mt={"auto"}
@@ -150,7 +191,10 @@ export const News: React.FC = () => {
                   WebkitLineClamp: 3,
                   WebkitBoxOrient: "vertical",
                 }}
-                onClick={() => window.open(notice?.link, "_blank")}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.open(notice?.link, "_blank");
+                }}
               >
                 <BsBoxArrowInUpRight />
                 {extractSummary(html_parser(notice?.description))}
@@ -165,6 +209,14 @@ export const News: React.FC = () => {
                 </Text>
               </Flex>
             </MotionFlex>
+            <Progress
+              value={progressTime}
+              width={"100%"}
+              size={"xs"}
+              display={handle.active ? "none" : "block"}
+              colorScheme="teal"
+              isAnimated
+            />
           </MotionFlex>
         </FullScreen>
       </Flex>
