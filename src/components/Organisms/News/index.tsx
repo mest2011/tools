@@ -196,6 +196,8 @@ export const News: React.FC = () => {
                   display={handle.active ? "none" : "block"}
                   colorScheme="teal"
                   isAnimated
+                  bgColor={"#000000ab"}
+                  backdropFilter={"blur(7px)"}
                 />
               </MotionFlex>
             </FullScreen>
